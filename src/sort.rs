@@ -15,6 +15,7 @@ pub fn insertion_sort(data: &mut [i32], asc: bool) {
     }
 }
 
+
 pub fn merge(data: &mut [i32], p: usize, q: usize, r: usize, asc: bool) {
     // Split data into two arrays and create copies
     let left = data[p..=q].to_owned();
@@ -63,6 +64,19 @@ pub fn merge_sort(data: &mut [i32], p: usize, r: usize, asc: bool) {
 }
 
 
+pub fn bubble_sort(data: &mut [i32], asc: bool) {
+    for i in 0..data.len() {
+        for j in ((i + 1)..data.len()).rev() {
+            if asc && data[j] < data[j - 1] {
+                data.swap(j, j - 1);
+            } else if !asc && data[j] > data[j - 1] {
+                data.swap(j, j - 1);
+            }
+        }
+    }
+}
+
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -96,6 +110,22 @@ mod tests {
         let mut test_data = vec![-1, 5, 4, 1, 0];
         merge_sort(&mut test_data, 0, 4, false);
         let expected = vec![5, 4, 1, 0, -1];
+        assert_eq!(test_data, expected);
+    }
+
+    #[test]
+    fn test_bubble_sort_asc() {
+        let mut test_data = [-1, 5, 4, 1, 0];
+        bubble_sort(&mut test_data, true);
+        let expected = [-1, 0, 1, 4, 5];
+        assert_eq!(test_data, expected);
+    }
+
+    #[test]
+    fn test_bubble_sort_desc() {
+        let mut test_data = [-1, 5, 4, 1, 0];
+        bubble_sort(&mut test_data, false);
+        let expected = [5, 4, 1, 0, -1];
         assert_eq!(test_data, expected);
     }
 }
