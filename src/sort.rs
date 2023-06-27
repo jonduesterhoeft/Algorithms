@@ -15,7 +15,6 @@ pub fn insertion_sort(data: &mut [i32], asc: bool) {
     }
 }
 
-
 pub fn merge(data: &mut [i32], p: usize, q: usize, r: usize, asc: bool) {
     // Split data into two arrays and create copies
     let left = data[p..=q].to_owned();
@@ -30,7 +29,7 @@ pub fn merge(data: &mut [i32], p: usize, q: usize, r: usize, asc: bool) {
         if asc && left[i] <= right[j] {
             data[k] = left[i];
             i = i + 1;
-        } else if !asc && left[i] >= right[j]{
+        } else if !asc && left[i] >= right[j] {
             data[k] = left[i];
             i = i + 1;
         } else {
@@ -63,7 +62,6 @@ pub fn merge_sort(data: &mut [i32], p: usize, r: usize, asc: bool) {
     merge(data, p, q, r, asc);
 }
 
-
 pub fn bubble_sort(data: &mut [i32], asc: bool) {
     for i in 0..data.len() {
         for j in ((i + 1)..data.len()).rev() {
@@ -76,6 +74,60 @@ pub fn bubble_sort(data: &mut [i32], asc: bool) {
     }
 }
 
+pub fn parent(i: &usize) -> usize {
+    (i - 1) / 2
+}
+
+pub fn left(i: &usize) -> usize {
+    2 * i + 1
+}
+
+pub fn right(i: &usize) -> usize {
+    2 * i + 2
+}
+
+pub fn max_heapify(data: &mut [i32], i: &usize, heap_size: &usize) {
+    // Maintains the max-heap property on a array
+    let l = left(i);
+    let r = right(i);
+    let mut largest: usize;
+
+    if l < *heap_size && data[l] > data[*i] {
+        largest = l;
+    } else {
+        largest = *i;
+    }
+
+    if r < *heap_size && data[r] > data[largest] {
+        largest = r;
+    }
+
+    if largest != *i {
+        data.swap(*i, largest);
+        max_heapify(data, &largest, heap_size);
+    }
+}
+
+pub fn build_max_heap(data: &mut [i32]) {
+    // Converts an array into a max heap using max_heapify
+    let heap_size = data.len();
+    for i in (0..=(heap_size / 2)).rev() {
+        max_heapify(data, &i, &heap_size);
+    }
+}
+
+pub fn heap_sort(data: &mut [i32]) {
+    // The heap sort algorithm
+    build_max_heap(data);
+
+    let mut heap_size = data.len(); // heap size
+
+    for i in (1..heap_size).rev() {
+        data.swap(0, i);
+        heap_size -= 1;
+        max_heapify(data, &0, &heap_size);
+    }
+}
 
 #[cfg(test)]
 mod tests {
@@ -126,6 +178,14 @@ mod tests {
         let mut test_data = [-1, 5, 4, 1, 0];
         bubble_sort(&mut test_data, false);
         let expected = [5, 4, 1, 0, -1];
+        assert_eq!(test_data, expected);
+    }
+
+    #[test]
+    fn test_heap_sort() {
+        let mut test_data = [-1, 5, 4, 1, 0];
+        heap_sort(&mut test_data);
+        let expected = [-1, 0, 1, 4, 5];
         assert_eq!(test_data, expected);
     }
 }
