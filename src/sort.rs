@@ -15,6 +15,7 @@ pub fn insertion_sort(data: &mut [i32], asc: bool) {
     }
 }
 
+
 pub fn merge(data: &mut [i32], p: usize, q: usize, r: usize, asc: bool) {
     // Split data into two arrays and create copies
     let left = data[p..=q].to_owned();
@@ -62,6 +63,7 @@ pub fn merge_sort(data: &mut [i32], p: usize, r: usize, asc: bool) {
     merge(data, p, q, r, asc);
 }
 
+
 pub fn bubble_sort(data: &mut [i32], asc: bool) {
     for i in 0..data.len() {
         for j in ((i + 1)..data.len()).rev() {
@@ -73,6 +75,7 @@ pub fn bubble_sort(data: &mut [i32], asc: bool) {
         }
     }
 }
+
 
 pub fn parent(i: &usize) -> usize {
     (i - 1) / 2
@@ -129,6 +132,30 @@ pub fn heap_sort(data: &mut [i32]) {
     }
 }
 
+// TODO - Fix (i)
+pub fn partition(data: &mut [i32], p: &usize, r: &usize) -> usize {
+    let x = data[*r];
+    let mut i: isize = *p as isize - 1;
+
+    for j in *p..=(*r - 1) {
+        if data[j] <= x {
+            i += 1;
+            data.swap(i as usize, j);
+        }
+    }
+
+    data.swap(i as usize + 1, *r);
+    i as usize + 1
+}
+
+pub fn quick_sort(data: &mut [i32], p: usize, r: usize) {
+    if p < r {
+        let q = partition(data, &p, &r);
+        quick_sort(data, p, q - 1);
+        quick_sort(data, q + 1, r);
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -182,9 +209,17 @@ mod tests {
     }
 
     #[test]
-    fn test_heap_sort() {
+    fn test_heap_sort_asc() {
         let mut test_data = [-1, 5, 4, 1, 0];
         heap_sort(&mut test_data);
+        let expected = [-1, 0, 1, 4, 5];
+        assert_eq!(test_data, expected);
+    }
+
+    #[test]
+    fn test_quick_sort_asc() {
+        let mut test_data = [-1, 5, 4, 1, 0];
+        quick_sort(&mut test_data, 0, 4);
         let expected = [-1, 0, 1, 4, 5];
         assert_eq!(test_data, expected);
     }
