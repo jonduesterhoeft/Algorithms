@@ -4,6 +4,7 @@
 /// 
 /// Worst-Case Running Time: Θ(*n*<sup>2</sup>)
 /// 
+/// 
 /// Average-Case Running Time: Θ(*n*<sup>2</sup>)
 /// 
 /// Note that this function sorts the array directly *in place*.
@@ -46,6 +47,7 @@ pub fn insertion_sort(data: &mut [i32], asc: bool) {
 /// Merge sort uses a recurrsive divide-and-conquer method to sort an array.
 /// 
 /// Worst-Case Running Time: Θ(*n* lg *n*)
+/// 
 /// 
 /// Average-Case Running Time: Θ(*n* lg *n*)
 /// 
@@ -119,6 +121,7 @@ fn merge(data: &mut [i32], p: usize, q: usize, r: usize, asc: bool) {
 /// Bubble sort is a popular but inefficient sorting algorithm.
 /// 
 /// Worst-Case Running Time: Θ(*n*<sup>2</sup>)
+/// 
 /// 
 /// Average-Case Running Time: Θ(*n*<sup>2</sup>)
 /// 
@@ -232,6 +235,7 @@ fn right(i: &usize) -> usize {
 /// choice for sorting because it is very efficient on average.
 /// 
 /// Worst-Case Running Time: Θ(*n*<sup>2</sup>)
+/// 
 /// 
 /// Average-Case Running Time: Θ(*n* lg *n*) (expected)
 /// 
