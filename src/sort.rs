@@ -8,13 +8,13 @@
 /// ```
 /// // Ascending Sort
 /// let mut array = [-1, 5, 4, 1, 0];
-/// insertion_sort(&mut array, asc: true);
+/// insertion_sort(&mut array, true);
 /// 
 /// assert_eq!(array, [-1, 0, 1, 4, 5]);
 /// 
 /// // Descending Sort
 /// let mut array = [-1, 5, 4, 1, 0];
-/// insertion_sort(&mut test_data, asc: false);
+/// insertion_sort(&mut test_data, false);
 ///
 /// assert_eq!(array, [5, 4, 1, 0, -1]);
 /// ```
