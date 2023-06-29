@@ -1,6 +1,26 @@
+/// Uses the **insertion sort** algorithm to sort an array.
+/// 
+/// Insertion sort is an efficient algorithm for a small number
+/// of elements. 
+/// 
+/// # Examples
+/// 
+/// ```
+/// // Ascending Sort
+/// let mut array = [-1, 5, 4, 1, 0];
+/// insertion_sort(&mut array, asc: true);
+/// 
+/// assert_eq!(array, [-1, 0, 1, 4, 5]);
+/// 
+/// // Descending Sort
+/// let mut array = [-1, 5, 4, 1, 0];
+/// insertion_sort(&mut test_data, asc: false);
+///
+/// assert_eq!(array, [5, 4, 1, 0, -1]);
+/// ```
 pub fn insertion_sort(data: &mut [i32], asc: bool) {
     for i in 1..data.len() {
-        let mut j = i;
+        let mut j: usize = i;
         if asc {
             while j > 0 && data[j - 1] > data[j] {
                 data.swap(j - 1, j);
