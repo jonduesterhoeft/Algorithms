@@ -3,6 +3,7 @@
 /// Insertion sort is an efficient algorithm for a small number of elements.
 /// 
 /// Worst-Case Running Time: Θ(*n*<sup>2</sup>)
+/// 
 /// Average-Case Running Time: Θ(*n*<sup>2</sup>)
 /// 
 /// Note that this function sorts the array directly *in place*.
@@ -45,6 +46,7 @@ pub fn insertion_sort(data: &mut [i32], asc: bool) {
 /// Merge sort uses a recurrsive divide-and-conquer method to sort an array.
 /// 
 /// Worst-Case Running Time: Θ(*n* lg *n*)
+/// 
 /// Average-Case Running Time: Θ(*n* lg *n*)
 /// 
 /// Note that this function sorts the array directly *in place*.
@@ -54,13 +56,13 @@ pub fn insertion_sort(data: &mut [i32], asc: bool) {
 /// ```
 /// // Ascending Sort
 /// let mut array = [-1, 5, 4, 1, 0];
-/// algorithms::sort::merge_sort(&mut array, true);
+/// algorithms::sort::merge_sort(&mut array, 0, 4, true);
 /// 
 /// assert_eq!(array, [-1, 0, 1, 4, 5]);
 /// 
 /// // Descending Sort
 /// let mut array = [-1, 5, 4, 1, 0];
-/// algorithms::sort::merge_sort(&mut array, false);
+/// algorithms::sort::merge_sort(&mut array, 0, 4, false);
 ///
 /// assert_eq!(array, [5, 4, 1, 0, -1]);
 /// ```
@@ -117,6 +119,7 @@ fn merge(data: &mut [i32], p: usize, q: usize, r: usize, asc: bool) {
 /// Bubble sort is a popular but inefficient sorting algorithm.
 /// 
 /// Worst-Case Running Time: Θ(*n*<sup>2</sup>)
+/// 
 /// Average-Case Running Time: Θ(*n*<sup>2</sup>)
 /// 
 /// Note that this function sorts the array directly *in place*.
@@ -229,6 +232,7 @@ fn right(i: &usize) -> usize {
 /// choice for sorting because it is very efficient on average.
 /// 
 /// Worst-Case Running Time: Θ(*n*<sup>2</sup>)
+/// 
 /// Average-Case Running Time: Θ(*n* lg *n*) (expected)
 /// 
 /// Note that this function sorts the array directly *in place*.
