@@ -1,20 +1,21 @@
 /// Uses the **insertion sort** algorithm to sort an array.
-/// 
-/// Insertion sort is an efficient algorithm for a small number
-/// of elements. 
-/// 
+///
+/// Insertion sort is an efficient algorithm for a small number of elements.
+///
+/// Note that the array is sorted *in place*.
+///
 /// # Examples
-/// 
+///
 /// ```
 /// // Ascending Sort
 /// let mut array = [-1, 5, 4, 1, 0];
-/// insertion_sort(&mut array, true);
-/// 
+/// algorithms::insertion_sort(&mut array, asc: true);
+///
 /// assert_eq!(array, [-1, 0, 1, 4, 5]);
-/// 
+///
 /// // Descending Sort
 /// let mut array = [-1, 5, 4, 1, 0];
-/// insertion_sort(&mut test_data, false);
+/// algorithms::insertion_sort(&mut test_data, asc: false);
 ///
 /// assert_eq!(array, [5, 4, 1, 0, -1]);
 /// ```
@@ -35,8 +36,38 @@ pub fn insertion_sort(data: &mut [i32], asc: bool) {
     }
 }
 
+/// Uses the **merge sort** algorithm to sort an array.
+///
+/// Insertion sort is an efficient algorithm for a small number of elements.
+///
+/// Note that the array is sorted *in place*.
+///
+/// # Examples
+///
+/// ```
+/// // Ascending Sort
+/// let mut array = [-1, 5, 4, 1, 0];
+/// algorithms::merge_sort(&mut array, true);
+///
+/// assert_eq!(array, [-1, 0, 1, 4, 5]);
+///
+/// // Descending Sort
+/// let mut array = [-1, 5, 4, 1, 0];
+/// algorithms::merge_sort(&mut test_data, false);
+///
+/// assert_eq!(array, [5, 4, 1, 0, -1]);
+/// ```
+pub fn merge_sort(data: &mut [i32], p: usize, r: usize, asc: bool) {
+    if p >= r {
+        return;
+    }
+    let q = (p + r) / 2;
+    merge_sort(data, p, q, asc);
+    merge_sort(data, q + 1, r, asc);
+    merge(data, p, q, r, asc);
+}
 
-pub fn merge(data: &mut [i32], p: usize, q: usize, r: usize, asc: bool) {
+fn merge(data: &mut [i32], p: usize, q: usize, r: usize, asc: bool) {
     // Split data into two arrays and create copies
     let left = data[p..=q].to_owned();
     let right = data[q + 1..=r].to_owned();
@@ -73,17 +104,27 @@ pub fn merge(data: &mut [i32], p: usize, q: usize, r: usize, asc: bool) {
     }
 }
 
-pub fn merge_sort(data: &mut [i32], p: usize, r: usize, asc: bool) {
-    if p >= r {
-        return;
-    }
-    let q = (p + r) / 2;
-    merge_sort(data, p, q, asc);
-    merge_sort(data, q + 1, r, asc);
-    merge(data, p, q, r, asc);
-}
-
-
+/// Uses the **bubble sort** algorithm to sort an array.
+///
+/// Insertion sort is an efficient algorithm for a small number of elements.
+///
+/// Note that the array is sorted *in place*.
+///
+/// # Examples
+///
+/// ```
+/// // Ascending Sort
+/// let mut array = [-1, 5, 4, 1, 0];
+/// algorithms::merge_sort(&mut array, true);
+///
+/// assert_eq!(array, [-1, 0, 1, 4, 5]);
+///
+/// // Descending Sort
+/// let mut array = [-1, 5, 4, 1, 0];
+/// algorithms::merge_sort(&mut test_data, false);
+///
+/// assert_eq!(array, [5, 4, 1, 0, -1]);
+/// ```
 pub fn bubble_sort(data: &mut [i32], asc: bool) {
     for i in 0..data.len() {
         for j in ((i + 1)..data.len()).rev() {
@@ -96,20 +137,49 @@ pub fn bubble_sort(data: &mut [i32], asc: bool) {
     }
 }
 
+/// Uses the **heap sort** algorithm to sort an array.
+///
+/// Insertion sort is an efficient algorithm for a small number of elements.
+///
+/// Note that the array is sorted *in place*.
+///
+/// # Examples
+///
+/// ```
+/// // Ascending Sort
+/// let mut array = [-1, 5, 4, 1, 0];
+/// algorithms::merge_sort(&mut array, true);
+///
+/// assert_eq!(array, [-1, 0, 1, 4, 5]);
+///
+/// // Descending Sort
+/// let mut array = [-1, 5, 4, 1, 0];
+/// algorithms::merge_sort(&mut test_data, false);
+///
+/// assert_eq!(array, [5, 4, 1, 0, -1]);
+/// ```
+pub fn heap_sort(data: &mut [i32]) {
+    // The heap sort algorithm
+    build_max_heap(data);
 
-pub fn parent(i: &usize) -> usize {
-    (i - 1) / 2
+    let mut heap_size = data.len(); // heap size
+
+    for i in (1..heap_size).rev() {
+        data.swap(0, i);
+        heap_size -= 1;
+        max_heapify(data, &0, &heap_size);
+    }
 }
 
-pub fn left(i: &usize) -> usize {
-    2 * i + 1
+fn build_max_heap(data: &mut [i32]) {
+    // Converts an array into a max heap using max_heapify
+    let heap_size = data.len();
+    for i in (0..=(heap_size / 2)).rev() {
+        max_heapify(data, &i, &heap_size);
+    }
 }
 
-pub fn right(i: &usize) -> usize {
-    2 * i + 2
-}
-
-pub fn max_heapify(data: &mut [i32], i: &usize, heap_size: &usize) {
+fn max_heapify(data: &mut [i32], i: &usize, heap_size: &usize) {
     // Maintains the max-heap property on a array
     let l = left(i);
     let r = right(i);
@@ -131,28 +201,39 @@ pub fn max_heapify(data: &mut [i32], i: &usize, heap_size: &usize) {
     }
 }
 
-pub fn build_max_heap(data: &mut [i32]) {
-    // Converts an array into a max heap using max_heapify
-    let heap_size = data.len();
-    for i in (0..=(heap_size / 2)).rev() {
-        max_heapify(data, &i, &heap_size);
-    }
+fn parent(i: &usize) -> usize {
+    (i - 1) / 2
 }
 
-pub fn heap_sort(data: &mut [i32]) {
-    // The heap sort algorithm
-    build_max_heap(data);
-
-    let mut heap_size = data.len(); // heap size
-
-    for i in (1..heap_size).rev() {
-        data.swap(0, i);
-        heap_size -= 1;
-        max_heapify(data, &0, &heap_size);
-    }
+fn left(i: &usize) -> usize {
+    2 * i + 1
 }
 
-// TODO - Fix (i)
+fn right(i: &usize) -> usize {
+    2 * i + 2
+}
+
+/// Uses the **quick sort** algorithm to sort an array.
+///
+/// Insertion sort is an efficient algorithm for a small number of elements.
+///
+/// Note that the array is sorted *in place*.
+///
+/// # Examples
+///
+/// ```
+/// // Ascending Sort
+/// let mut array = [-1, 5, 4, 1, 0];
+/// algorithms::merge_sort(&mut array, true);
+///
+/// assert_eq!(array, [-1, 0, 1, 4, 5]);
+///
+/// // Descending Sort
+/// let mut array = [-1, 5, 4, 1, 0];
+/// algorithms::merge_sort(&mut test_data, false);
+///
+/// assert_eq!(array, [5, 4, 1, 0, -1]);
+/// ```
 pub fn partition(data: &mut [i32], p: &usize, r: &usize) -> usize {
     let x = data[*r];
     let mut i: isize = *p as isize - 1;
