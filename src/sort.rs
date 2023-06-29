@@ -1,21 +1,24 @@
 /// Uses the **insertion sort** algorithm to sort an array.
-///
+/// 
 /// Insertion sort is an efficient algorithm for a small number of elements.
-///
-/// Note that the array is sorted *in place*.
-///
+/// 
+/// Worst-Case Running Time: Θ(*n*<sup>2</sup>)
+/// Average-Case Running Time: Θ(*n*<sup>2</sup>)
+/// 
+/// Note that this function sorts the array directly *in place*.
+/// 
 /// # Examples
-///
+/// 
 /// ```
 /// // Ascending Sort
 /// let mut array = [-1, 5, 4, 1, 0];
-/// algorithms::insertion_sort(&mut array, asc: true);
-///
+/// algorithms::sort::insertion_sort(&mut array, true);
+/// 
 /// assert_eq!(array, [-1, 0, 1, 4, 5]);
-///
+/// 
 /// // Descending Sort
 /// let mut array = [-1, 5, 4, 1, 0];
-/// algorithms::insertion_sort(&mut test_data, asc: false);
+/// algorithms::sort::insertion_sort(&mut array, false);
 ///
 /// assert_eq!(array, [5, 4, 1, 0, -1]);
 /// ```
@@ -36,24 +39,28 @@ pub fn insertion_sort(data: &mut [i32], asc: bool) {
     }
 }
 
+
 /// Uses the **merge sort** algorithm to sort an array.
-///
-/// Insertion sort is an efficient algorithm for a small number of elements.
-///
-/// Note that the array is sorted *in place*.
-///
+/// 
+/// Merge sort uses a recurrsive divide-and-conquer method to sort an array.
+/// 
+/// Worst-Case Running Time: Θ(*n* lg *n*)
+/// Average-Case Running Time: Θ(*n* lg *n*)
+/// 
+/// Note that this function sorts the array directly *in place*.
+/// 
 /// # Examples
-///
+/// 
 /// ```
 /// // Ascending Sort
 /// let mut array = [-1, 5, 4, 1, 0];
-/// algorithms::merge_sort(&mut array, true);
-///
+/// algorithms::sort::merge_sort(&mut array, true);
+/// 
 /// assert_eq!(array, [-1, 0, 1, 4, 5]);
-///
+/// 
 /// // Descending Sort
 /// let mut array = [-1, 5, 4, 1, 0];
-/// algorithms::merge_sort(&mut test_data, false);
+/// algorithms::sort::merge_sort(&mut array, false);
 ///
 /// assert_eq!(array, [5, 4, 1, 0, -1]);
 /// ```
@@ -104,24 +111,28 @@ fn merge(data: &mut [i32], p: usize, q: usize, r: usize, asc: bool) {
     }
 }
 
+
 /// Uses the **bubble sort** algorithm to sort an array.
-///
-/// Insertion sort is an efficient algorithm for a small number of elements.
-///
-/// Note that the array is sorted *in place*.
-///
+/// 
+/// Bubble sort is a popular but inefficient sorting algorithm.
+/// 
+/// Worst-Case Running Time: Θ(*n*<sup>2</sup>)
+/// Average-Case Running Time: Θ(*n*<sup>2</sup>)
+/// 
+/// Note that this function sorts the array directly *in place*.
+/// 
 /// # Examples
-///
+/// 
 /// ```
 /// // Ascending Sort
 /// let mut array = [-1, 5, 4, 1, 0];
-/// algorithms::merge_sort(&mut array, true);
-///
+/// algorithms::sort::bubble_sort(&mut array, true);
+/// 
 /// assert_eq!(array, [-1, 0, 1, 4, 5]);
-///
+/// 
 /// // Descending Sort
 /// let mut array = [-1, 5, 4, 1, 0];
-/// algorithms::merge_sort(&mut test_data, false);
+/// algorithms::sort::bubble_sort(&mut array, false);
 ///
 /// assert_eq!(array, [5, 4, 1, 0, -1]);
 /// ```
@@ -137,26 +148,24 @@ pub fn bubble_sort(data: &mut [i32], asc: bool) {
     }
 }
 
+
 /// Uses the **heap sort** algorithm to sort an array.
-///
-/// Insertion sort is an efficient algorithm for a small number of elements.
-///
-/// Note that the array is sorted *in place*.
-///
+/// 
+/// Heap sort combines the better qualities of insertion and merge sorts, 
+/// with a fast running time and sort-in-place.
+/// 
+/// Worst-Case Running Time: O(*n* lg *n*)
+/// 
+/// Note that this function sorts the array directly *in place*.
+/// 
 /// # Examples
-///
+/// 
 /// ```
 /// // Ascending Sort
 /// let mut array = [-1, 5, 4, 1, 0];
-/// algorithms::merge_sort(&mut array, true);
-///
+/// algorithms::sort::heap_sort(&mut array);
+/// 
 /// assert_eq!(array, [-1, 0, 1, 4, 5]);
-///
-/// // Descending Sort
-/// let mut array = [-1, 5, 4, 1, 0];
-/// algorithms::merge_sort(&mut test_data, false);
-///
-/// assert_eq!(array, [5, 4, 1, 0, -1]);
 /// ```
 pub fn heap_sort(data: &mut [i32]) {
     // The heap sort algorithm
@@ -213,28 +222,35 @@ fn right(i: &usize) -> usize {
     2 * i + 2
 }
 
+
 /// Uses the **quick sort** algorithm to sort an array.
-///
-/// Insertion sort is an efficient algorithm for a small number of elements.
-///
-/// Note that the array is sorted *in place*.
-///
+/// 
+/// Despite the worst-case running time, quick sort is often the best practical
+/// choice for sorting because it is very efficient on average.
+/// 
+/// Worst-Case Running Time: Θ(*n*<sup>2</sup>)
+/// Average-Case Running Time: Θ(*n* lg *n*) (expected)
+/// 
+/// Note that this function sorts the array directly *in place*.
+/// 
 /// # Examples
-///
+/// 
 /// ```
 /// // Ascending Sort
 /// let mut array = [-1, 5, 4, 1, 0];
-/// algorithms::merge_sort(&mut array, true);
-///
+/// algorithms::sort::quick_sort(&mut array, 0 ,4);
+/// 
 /// assert_eq!(array, [-1, 0, 1, 4, 5]);
-///
-/// // Descending Sort
-/// let mut array = [-1, 5, 4, 1, 0];
-/// algorithms::merge_sort(&mut test_data, false);
-///
-/// assert_eq!(array, [5, 4, 1, 0, -1]);
 /// ```
-pub fn partition(data: &mut [i32], p: &usize, r: &usize) -> usize {
+pub fn quick_sort(data: &mut [i32], p: usize, r: usize) {
+    if p < r {
+        let q = partition(data, &p, &r);
+        quick_sort(data, p, q - 1);
+        quick_sort(data, q + 1, r);
+    }
+}
+
+fn partition(data: &mut [i32], p: &usize, r: &usize) -> usize {
     let x = data[*r];
     let mut i: isize = *p as isize - 1;
 
@@ -247,14 +263,6 @@ pub fn partition(data: &mut [i32], p: &usize, r: &usize) -> usize {
 
     data.swap(i as usize + 1, *r);
     i as usize + 1
-}
-
-pub fn quick_sort(data: &mut [i32], p: usize, r: usize) {
-    if p < r {
-        let q = partition(data, &p, &r);
-        quick_sort(data, p, q - 1);
-        quick_sort(data, q + 1, r);
-    }
 }
 
 #[cfg(test)]
