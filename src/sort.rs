@@ -1,3 +1,5 @@
+use std::error::Error;
+
 /// Uses the **insertion sort** algorithm to sort an array.
 /// 
 /// Insertion sort is an efficient algorithm for a small number of elements.
@@ -24,7 +26,11 @@
 ///
 /// assert_eq!(array, [5, 4, 1, 0, -1]);
 /// ```
-pub fn insertion_sort(data: &mut [i32], asc: bool) {
+///
+pub fn insertion_sort<T>(data: &mut [T], asc: bool)
+where 
+    T: PartialOrd
+{
     for i in 1..data.len() {
         let mut j: usize = i;
         if asc {
@@ -68,7 +74,10 @@ pub fn insertion_sort(data: &mut [i32], asc: bool) {
 ///
 /// assert_eq!(array, [5, 4, 1, 0, -1]);
 /// ```
-pub fn merge_sort(data: &mut [i32], p: usize, r: usize, asc: bool) {
+pub fn merge_sort<T>(data: &mut [T], p: usize, r: usize, asc: bool) 
+where 
+    T: PartialOrd + Copy
+{
     if p >= r {
         return;
     }
@@ -78,7 +87,10 @@ pub fn merge_sort(data: &mut [i32], p: usize, r: usize, asc: bool) {
     merge(data, p, q, r, asc);
 }
 
-fn merge(data: &mut [i32], p: usize, q: usize, r: usize, asc: bool) {
+fn merge<T>(data: &mut [T], p: usize, q: usize, r: usize, asc: bool) 
+where 
+    T: PartialOrd + Copy
+{
     // Split data into two arrays and create copies
     let left = data[p..=q].to_owned();
     let right = data[q + 1..=r].to_owned();
@@ -142,7 +154,10 @@ fn merge(data: &mut [i32], p: usize, q: usize, r: usize, asc: bool) {
 ///
 /// assert_eq!(array, [5, 4, 1, 0, -1]);
 /// ```
-pub fn bubble_sort(data: &mut [i32], asc: bool) {
+pub fn bubble_sort<T>(data: &mut [T], asc: bool) 
+where
+    T: PartialOrd
+{
     for i in 0..data.len() {
         for j in ((i + 1)..data.len()).rev() {
             if asc && data[j] < data[j - 1] {
@@ -173,7 +188,10 @@ pub fn bubble_sort(data: &mut [i32], asc: bool) {
 /// 
 /// assert_eq!(array, [-1, 0, 1, 4, 5]);
 /// ```
-pub fn heap_sort(data: &mut [i32]) {
+pub fn heap_sort<T>(data: &mut [T]) 
+where 
+    T: PartialOrd
+{
     // The heap sort algorithm
     build_max_heap(data);
 
@@ -186,7 +204,10 @@ pub fn heap_sort(data: &mut [i32]) {
     }
 }
 
-fn build_max_heap(data: &mut [i32]) {
+fn build_max_heap<T>(data: &mut [T])
+where 
+    T: PartialOrd
+ {
     // Converts an array into a max heap using max_heapify
     let heap_size = data.len();
     for i in (0..=(heap_size / 2)).rev() {
@@ -194,7 +215,10 @@ fn build_max_heap(data: &mut [i32]) {
     }
 }
 
-fn max_heapify(data: &mut [i32], i: &usize, heap_size: &usize) {
+fn max_heapify<T>(data: &mut [T], i: &usize, heap_size: &usize) 
+where 
+    T: PartialOrd
+{
     // Maintains the max-heap property on a array
     let l = left(i);
     let r = right(i);
@@ -250,7 +274,10 @@ fn right(i: &usize) -> usize {
 /// 
 /// assert_eq!(array, [-1, 0, 1, 4, 5]);
 /// ```
-pub fn quick_sort(data: &mut [i32], p: usize, r: usize) {
+pub fn quick_sort<T>(data: &mut [T], p: usize, r: usize) 
+where   
+    T: PartialOrd + Copy
+{
     if p < r {
         let q = partition(data, &p, &r);
         quick_sort(data, p, q - 1);
@@ -258,7 +285,10 @@ pub fn quick_sort(data: &mut [i32], p: usize, r: usize) {
     }
 }
 
-fn partition(data: &mut [i32], p: &usize, r: &usize) -> usize {
+fn partition<T>(data: &mut [T], p: &usize, r: &usize) -> usize 
+where   
+    T: PartialOrd + Copy
+{
     let x = data[*r];
     let mut i: isize = *p as isize - 1;
 
@@ -272,6 +302,7 @@ fn partition(data: &mut [i32], p: &usize, r: &usize) -> usize {
     data.swap(i as usize + 1, *r);
     i as usize + 1
 }
+
 
 #[cfg(test)]
 mod tests {
@@ -287,9 +318,9 @@ mod tests {
 
     #[test]
     fn test_insertion_sort_desc() {
-        let mut test_data = [-1, 5, 4, 1, 0];
+        let mut test_data = [-1.0, 5.0, 4.0, 1.0, 0.0];
         insertion_sort(&mut test_data, false);
-        let expected = [5, 4, 1, 0, -1];
+        let expected = [5.0, 4.0, 1.0, 0.0, -1.0];
         assert_eq!(test_data, expected);
     }
 
