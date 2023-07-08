@@ -1,5 +1,3 @@
-use std::error::Error;
-
 /// Uses the **insertion sort** algorithm to sort an array.
 /// 
 /// Insertion sort is an efficient algorithm for a small number of elements.
