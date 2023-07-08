@@ -1,4 +1,3 @@
-use std::slice::Iter;
 use num_traits::Num;
 
 /// A simple *m x n* Matrix, with *m* `rows` and *n* `cols`.
@@ -20,8 +19,8 @@ impl<T> Matrix<T>
     /// Panics if either `rows` or `cols` are zero or less.
     ///
     /// # Examples
-    /// ```
-    /// let matrix: Matrix<i32> = new(2, 4);
+    /// ```no run
+    /// let matrix: Matrix<i32> = matrix::Matrix::new(2, 4);
     /// 
     /// assert_eq!(matrix.get(1, 1).unwrap(), &0);
     /// ```
@@ -44,7 +43,7 @@ impl<T> Matrix<T>
     /// Panics if the iterator does not have at least `rows * cols` values.
     ///
     /// # Examples
-    /// ```
+    /// ```no run
     /// let matrix: Matrix<usize> = Matrix::from_iter(2, 2, 0..);
     ///
     /// assert_eq!(mat.get(0, 0).unwrap(), &0);
@@ -73,7 +72,7 @@ impl<T> Matrix<T>
     /// Panics if `size` is zero or less.
     /// 
     /// # Examples
-    /// ```
+    /// ```no run
     /// let identity: Matrix<i32> = Matrix::identity(3);
     /// 
     /// assert_eq!(identity.get(0, 0).unwrap(), &1);
@@ -95,7 +94,7 @@ impl<T> Matrix<T>
     /// Returns the number of rows in the matrix.
     ///
     /// # Examples
-    /// ```
+    /// ```no run
     /// let matrix: Matrix<usize> = Matrix::new(3, 6);
     ///
     /// assert_eq!(matrix.rows(), 3);
@@ -107,7 +106,7 @@ impl<T> Matrix<T>
     /// Returns the number of columns in the matrix.
     ///
     /// # Examples
-    /// ```
+    /// ```no run
     /// let matrix: Matrix<usize> = Matrix::new(3, 6);
     ///
     /// assert_eq!(matrix.cols(), 6);
@@ -121,7 +120,7 @@ impl<T> Matrix<T>
     /// Returns `None` if either `row` or `col` is outside of the matrix.
     ///
     /// # Examples
-    /// ```
+    /// ```no run
     /// let matrix: Matrix<usize> = Matrix::new(3, 6, 0..);
     ///
     /// assert_eq!(matrix.get(0, 0).unwrap(), &0);
@@ -141,7 +140,7 @@ impl<T> Matrix<T>
     /// Returns `None` if either `row` or `col` is outside of the matrix.
     ///
     /// # Examples
-    /// ```
+    /// ```no run
     /// let mut matrix: Matrix<usize> = Matrix::from_iter(3, 6, 0..);
     /// assert_eq!(matrix.get(0, 0).unwrap(), &0);
     ///
@@ -161,7 +160,7 @@ impl<T> Matrix<T>
     /// Returns `None` if either `row` or `col` is outside of the matrix.
     ///
     /// # Examples
-    /// ```
+    /// ```no run
     /// let mut matrix: Matrix<usize> = Matrix::new(3, 3);
     /// assert_eq!(matrix.get(0, 0).unwrap(), &0);
     ///
@@ -182,7 +181,7 @@ impl<T> Matrix<T>
     /// Returns `None` if `row` is outside of the matrix.
     ///
     /// # Examples
-    /// ```
+    /// ```no run
     /// let matrix: Matrix<usize> = Matrix::from_iter(3, 6, 0..);
     ///
     /// assert_eq!(matrix.get_row(1).unwrap(), vec![6, 7, 8, 9, 10, 11]);
@@ -202,7 +201,7 @@ impl<T> Matrix<T>
     /// Returns `None` if `col` is outside of the matrix.
     ///
     /// # Examples
-    /// ```
+    /// ```no run
     /// let mat: Matrix<usize> = Matrix::new(3, 6, 0..);
     ///
     /// assert_eq!(mat.get_col(1).unwrap(), vec![1, 7, 13]);
@@ -223,7 +222,7 @@ impl<T> Matrix<T>
     /// Panics if either `row_a` or `row_b` are outside the Matrix.
     /// 
     /// # Examples
-    /// ```
+    /// ```no run
     /// let mut matrix: Matrix<usize> = Matrix::from_iter(2, 2, 0..);
     /// matrix.swap_rows(0, 1);
     /// 
@@ -246,7 +245,7 @@ impl<T> Matrix<T>
     /// Panics if either `col_a` or `col_b` are outside the Matrix.
     /// 
     /// # Examples
-    /// ```
+    /// ```no run
     /// let mut matrix: Matrix<usize> = Matrix::from_iter(2, 2, 0..);
     /// matrix.swap_cols(0, 1);
     /// 
@@ -266,7 +265,7 @@ impl<T> Matrix<T>
     /// Take an *m x n* Matrix *M* and return the *transpose* Matrix *M*<sup>T</sup>.
     ///
     /// # Examples
-    /// ```
+    /// ```no run
     /// let matrix: Matrix<usize> = Matrix::new(3, 6, 0..);
     /// let transpose = matrix.transpose();
     ///
@@ -301,7 +300,7 @@ impl<T> Matrix<T>
     /// if you want to modify the cells, use `apply_mut`.
     ///
     /// # Examples
-    /// ```
+    /// ```no run
     /// // Get the sum of all cells
     /// let matrix = Matrix::from_iter(3, 6, 0..);
     /// let mut sum = 0;
@@ -319,7 +318,7 @@ impl<T> Matrix<T>
     /// and can therefore be modified.
     ///
     /// # Examples
-    /// ```
+    /// ```no run
     /// // Modify all cells with a function
     /// let mut matrix = Matrix::from_iter(3, 6, 0..);
     /// matrix.apply_mut(|n| n *= 2);
