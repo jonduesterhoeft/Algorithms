@@ -15,20 +15,20 @@ use std::error::Error;
 /// # #[macro_use] extern crate algorithms;
 /// # use crate::algorithms::data_structures::queue::*;
 /// # fn main() {
-/// let mut q = queue![3isize, 4, 5];
+/// let mut queue = queue![3isize, 4, 5];
 ///
 /// // Add an element
-/// assert_eq!(q.add(6).unwrap(), None);
+/// assert_eq!(queue.add(6).unwrap(), None);
 ///
 /// // Remove some elements
-/// assert_eq!(q.remove().unwrap(), 3);
-/// assert_eq!(q.remove().unwrap(), 4);
+/// assert_eq!(queue.remove().unwrap(), 3);
+/// assert_eq!(queue.remove().unwrap(), 4);
 ///
 /// // Peek at the next element scheduled for removal
-/// assert_eq!(q.read().unwrap(), 5);
+/// assert_eq!(queue.read().unwrap(), 5);
 ///
 /// // Check the queue size
-/// assert_eq!(q.size(), 2);
+/// assert_eq!(queue.size(), 2);
 /// # }
 /// ```
 /// 
@@ -69,7 +69,7 @@ pub trait IsQueue<T: Clone> {
     /// Returns an error if the queue is empty.
     fn remove(&mut self) -> Result<T, Box<dyn Error>>;
 
-    /// Peek at the head of the queue
+    /// Reads the head of the queue.
     ///
     /// # Returns
     /// - `Ok(T)`: The oldest value in the queue
@@ -79,7 +79,7 @@ pub trait IsQueue<T: Clone> {
     /// Returns an error if the queue is empty.
     fn read(&self) -> Result<T, Box<dyn Error>>;
 
-    /// Gets the size of the queue
+    /// Gets the size of the queue.
     ///
     /// # Returns
     /// The number of elements in the queue. Note, this *includes* default
@@ -116,8 +116,8 @@ impl<T: Clone> Default for Queue<T> {
     /// # Examples
     /// ```
     /// # use crate::algorithms::data_structures::queue::*;
-    /// let q: Queue<isize> = Queue::default();
-    /// assert_eq!(q.size(), 0);
+    /// let queue: Queue<isize> = Queue::default();
+    /// assert_eq!(queue.size(), 0);
     /// ```
     fn default() -> Queue<T> {
         Queue { queue: vec![] }
@@ -128,7 +128,7 @@ impl<T: Clone> IsQueue<T> for Queue<T> {
     /// Adds a new element to the end of the `Queue`.
     ///
     /// # Parameters
-    /// - `val`: Value to add to the queue
+    /// - `value`: Value to add to the queue
     ///
     /// # Returns
     /// `None` as the element addition should always be successful.
@@ -164,7 +164,7 @@ impl<T: Clone> IsQueue<T> for Queue<T> {
     /// ```
     fn remove(&mut self) -> Result<T, Box<dyn Error>> {
         if !self.queue.is_empty() {
-            Ok(self.queue.remove(0usize))
+            Ok(self.queue.remove(0))
         } else {
             panic!("The queue is empty")
         }
