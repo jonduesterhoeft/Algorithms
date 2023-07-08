@@ -189,7 +189,7 @@ impl<T> Matrix<T>
     ///
     /// assert!(matrix.get_row(5).is_err());
     /// ```
-    pub fn get_row(&self, row: usize) -> Option<Iter<'_, T>> {
+    pub fn get_row(&self, row: usize) -> Option<impl Iterator<Item = &T>> {
         if row < self.rows {
             Some((0..self.cols).map(move |col| self.get(row, col).unwrap()))
         } else {
