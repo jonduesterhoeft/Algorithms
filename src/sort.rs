@@ -186,38 +186,46 @@ where
 /// 
 /// assert_eq!(array, [-1, 0, 1, 4, 5]);
 /// ```
-pub fn heap_sort<T>(data: &mut [T]) 
+pub fn heap_sort<T>(data: &mut [T], asc: bool) 
 where 
     T: PartialOrd
 {
-    // The heap sort algorithm
-    build_max_heap(data);
+    build_heap(data, asc);
 
-    let mut heap_size = data.len(); // heap size
+    let mut heap_size = data.len(); 
 
     for i in (1..heap_size).rev() {
         data.swap(0, i);
         heap_size -= 1;
-        max_heapify(data, &0, &heap_size);
+
+        if asc {
+            max_heapify(data, &0, &heap_size);
+        } else {
+            min_heapify(data, &0, &heap_size);
+        }
     }
 }
 
-fn build_max_heap<T>(data: &mut [T])
+// Converts an array into either a max- or min- heap
+fn build_heap<T>(data: &mut [T], asc: bool)
 where 
     T: PartialOrd
- {
-    // Converts an array into a max heap using max_heapify
+{
     let heap_size = data.len();
     for i in (0..=(heap_size / 2)).rev() {
-        max_heapify(data, &i, &heap_size);
+        if asc {
+            max_heapify(data, &i, &heap_size);
+        } else {
+            min_heapify(data, &i, &heap_size);
+        }
     }
 }
 
+// Maintains the max-heap property
 fn max_heapify<T>(data: &mut [T], i: &usize, heap_size: &usize) 
 where 
     T: PartialOrd
 {
-    // Maintains the max-heap property on a array
     let l = left(i);
     let r = right(i);
     let mut largest: usize;
@@ -235,6 +243,31 @@ where
     if largest != *i {
         data.swap(*i, largest);
         max_heapify(data, &largest, heap_size);
+    }
+}
+
+// Maintains the min-heap property
+fn min_heapify<T>(data: &mut [T], i: &usize, heap_size: &usize) 
+where 
+    T: PartialOrd
+{
+    let l = left(i);
+    let r = right(i);
+    let mut smallest: usize;
+
+    if l < *heap_size && data[l] < data[*i] {
+        smallest = l;
+    } else {
+        smallest = *i;
+    }
+
+    if r < *heap_size && data[r] < data[smallest] {
+        smallest = r;
+    }
+
+    if smallest != *i {
+        data.swap(*i, smallest);
+        min_heapify(data, &smallest, heap_size);
     }
 }
 
@@ -357,8 +390,16 @@ mod tests {
     #[test]
     fn test_heap_sort_asc() {
         let mut test_data = [-1, 5, 4, 1, 0];
-        heap_sort(&mut test_data);
+        heap_sort(&mut test_data, true);
         let expected = [-1, 0, 1, 4, 5];
+        assert_eq!(test_data, expected);
+    }
+
+    #[test]
+    fn test_heap_sort_desc() {
+        let mut test_data = [-1, 5, 4, 1, 0];
+        heap_sort(&mut test_data, false);
+        let expected = [5, 4, 1, 0, -1];
         assert_eq!(test_data, expected);
     }
 
