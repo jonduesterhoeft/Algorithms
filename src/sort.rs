@@ -182,7 +182,7 @@ where
 /// ```
 /// // Ascending Sort
 /// let mut array = [-1, 5, 4, 1, 0];
-/// algorithms::sort::heap_sort(&mut array);
+/// algorithms::sort::heap_sort(&mut array, true);
 /// 
 /// assert_eq!(array, [-1, 0, 1, 4, 5]);
 /// ```
