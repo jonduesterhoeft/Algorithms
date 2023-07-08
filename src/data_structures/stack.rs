@@ -21,11 +21,11 @@ use std::error::Error;
 /// assert_eq!(stack.add(6).unwrap(), None);
 ///
 /// // Remove some elements
-/// assert_eq!(stack.remove().unwrap(), 3);
-/// assert_eq!(stack.remove().unwrap(), 4);
+/// assert_eq!(stack.remove().unwrap(), 6);
+/// assert_eq!(stack.remove().unwrap(), 5);
 ///
 /// // Peek at the next element scheduled for removal
-/// assert_eq!(stack.read().unwrap(), 5);
+/// assert_eq!(stack.read().unwrap(), 4);
 ///
 /// // Check the stack size
 /// assert_eq!(stack.size(), 2);
