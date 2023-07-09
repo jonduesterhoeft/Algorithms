@@ -59,7 +59,7 @@ impl<T> Matrix<T> {
     ///  
     /// Use `Matrix::from_iter` to build from an iterator.
     /// 
-    /// Use `Matrix::from_vec' to build from an existing vector.
+    /// Use `Matrix::from_vec` to build from an existing vector.
     /// 
     /// Use `Matrix::identity` to build an identity matrix.
     /// 
@@ -538,7 +538,7 @@ macro_rules! matrix {
 }
 
 
-
+/// An iterator for values of a column in `Matrix`.
 pub struct ColumnIterator<'a, T> {
     matrix: &'a Matrix<T>,
     current_col: usize,
@@ -560,6 +560,7 @@ impl<'a, T> Iterator for ColumnIterator<'a, T> {
     }
 }
 
+/// An iterator for values of a row in `Matrix`.
 pub struct RowIterator<'a, T> {
     matrix: &'a Matrix<T>,
     current_col: usize,
