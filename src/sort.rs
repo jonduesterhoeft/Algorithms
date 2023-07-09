@@ -271,7 +271,7 @@ where
     }
 }
 
-fn parent(i: &usize) -> usize {
+fn _parent(i: &usize) -> usize {
     (i - 1) / 2
 }
 
