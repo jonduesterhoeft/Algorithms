@@ -20,7 +20,6 @@
 /// 
 /// assert_eq!(array, [-1, 0, 1, 4, 5]);
 /// ```
-
 pub fn quick_sort<T>(data: &mut [T])
 where   
     T: PartialOrd + Copy 
@@ -28,7 +27,6 @@ where
     let length = data.len() as isize;
     _quick_sort(data, 0, length - 1);
 }
-
 
 fn _quick_sort<T>(data: &mut [T], left: isize, right: isize) 
 where   
@@ -41,7 +39,7 @@ where
     }
 }
 
-pub fn partition<T>(data: &mut [T], left: isize, right: isize) -> isize 
+fn partition<T>(data: &mut [T], left: isize, right: isize) -> isize 
 where   
     T: PartialOrd + Copy
 {
